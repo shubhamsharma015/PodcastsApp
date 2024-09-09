@@ -6,3 +6,10 @@
 //
 
 import Foundation
+extension String {
+    //MARK: because api's do not work for http 
+    func toSecureHTTPS() -> String {
+        return self.contains("https") ? self : self.replacingOccurrences(of: "http", with: "https")
+    }
+    
+}

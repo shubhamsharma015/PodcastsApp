@@ -6,24 +6,93 @@
 //
 
 import UIKit
+import Alamofire
 
-class PodcastsSearchController: UIViewController {
+class PodcastsSearchController: UITableViewController {
 
+    var podcasts = [Podcast]()
+    
+    let cellId = "cellId"
+    
+    //implementing search controller
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupSearchBar()
+        setupTableView()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: SetUp Work
+    
+    fileprivate func setupSearchBar() {
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
     }
-    */
+    
+    fileprivate func setupTableView() {
+        //1. register a cell for tableview
 
+        tableView.tableFooterView = UIView()
+
+        let nib = UINib(nibName: "PodcastCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cellId)
+    }
+    
+    //MARK: UITableView
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let episodeController = EpisodesController()
+        let podcast = self.podcasts[indexPath.row]
+        episodeController.podcast = podcast
+        navigationController?.pushViewController(episodeController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Please enter a Search Term"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        return label
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.podcasts.count > 0 ? 0 : 250
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return podcasts.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PodcastCell
+        let podcast = podcasts[indexPath.row]
+        cell.podcast = podcast
+
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 132
+    }
+}
+
+extension PodcastsSearchController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+//        let url = "https://itunes.apple.com/search?term=\(searchText)"
+        APIService.shared.fetchPodcasts(searchText: searchText) { podcasts in
+            self.podcasts = podcasts
+            self.tableView.reloadData()
+        }
+
+        
+             
+    }
+    
+    
 }

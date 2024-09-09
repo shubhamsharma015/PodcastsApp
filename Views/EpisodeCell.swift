@@ -9,15 +9,27 @@ import UIKit
 
 class EpisodeCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    var episode: Episode! {
+        didSet {
+            titleLabel.text = episode.title
+            descriptionLable.text = episode.description
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            
+            pubDateLabel.text = dateFormatter.string(from: episode.pubDate)
+            
+            let url = URL(string: episode.imageUrl?.toSecureHTTPS() ?? "")
+            episodeImageView.sd_setImage(with: url)
+        }
     }
+    
+    @IBOutlet weak var episodeImageView: UIImageView!
+    
+    @IBOutlet weak var pubDateLabel: UILabel!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var descriptionLable: UILabel!
     
 }

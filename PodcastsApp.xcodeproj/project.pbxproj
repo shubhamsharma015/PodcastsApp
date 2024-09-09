@@ -131,8 +131,6 @@
 		8457AF112C863F6A007BF2D3 = {
 			isa = PBXGroup;
 			children = (
-				84BD06F42C8EF9B1000F26BD /* Extensions */,
-				84C64F002C8CC4670083A6A9 /* Views */,
 				8457AF1C2C863F6A007BF2D3 /* PodcastsApp */,
 				8457AF332C863F6C007BF2D3 /* PodcastsAppTests */,
 				8457AF3D2C863F6C007BF2D3 /* PodcastsAppUITests */,
@@ -156,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				8457AF1D2C863F6A007BF2D3 /* AppDelegate.swift */,
+				84BD06F42C8EF9B1000F26BD /* Extensions */,
+				84C64F002C8CC4670083A6A9 /* Views */,
 				84BD06502C86540A0094F091 /* Modals */,
 				8494BEE22C8B14ED0070F02D /* API */,
 				84BD064D2C8653930094F091 /* Controllers */,

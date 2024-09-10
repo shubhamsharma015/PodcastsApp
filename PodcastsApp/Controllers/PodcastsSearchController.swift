@@ -14,6 +14,7 @@ class PodcastsSearchController: UITableViewController {
     
     let cellId = "cellId"
     
+    var timer: Timer?
     //implementing search controller
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -24,6 +25,7 @@ class PodcastsSearchController: UITableViewController {
         setupSearchBar()
         setupTableView()
         
+        searchBar(searchController.searchBar, textDidChange: "gf")
     }
     
     //MARK: SetUp Work
@@ -84,11 +86,18 @@ extension PodcastsSearchController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-//        let url = "https://itunes.apple.com/search?term=\(searchText)"
-        APIService.shared.fetchPodcasts(searchText: searchText) { podcasts in
-            self.podcasts = podcasts
-            self.tableView.reloadData()
-        }
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { timer in
+            
+            APIService.shared.fetchPodcasts(searchText: searchText) { podcasts in
+                self.podcasts = podcasts
+                self.tableView.reloadData()
+            }
+            
+        })
+        
+
 
         
              

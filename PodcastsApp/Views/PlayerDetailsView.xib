@@ -36,24 +36,27 @@
                                 <constraint firstAttribute="width" secondItem="kzX-2y-t3P" secondAttribute="height" id="bvm-kh-F68"/>
                             </constraints>
                         </imageView>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WLI-WM-3BK">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WLI-WM-3BK">
                             <rect key="frame" x="-2" y="396" width="346" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="hdb-qk-jfE"/>
                             </constraints>
+                            <connections>
+                                <action selector="handleCurrentTimeSliderChange:" destination="N3T-sx-jZl" eventType="valueChanged" id="2xZ-xM-9Rf"/>
+                            </connections>
                         </slider>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kbg-uU-Ku9">
                             <rect key="frame" x="0.0" y="437" width="342" height="22"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1l-O3-SPe" userLabel="00:00:00">
-                                    <rect key="frame" x="0.0" y="0.0" width="270" height="22"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1l-O3-SPe" userLabel="00:00:00">
+                                    <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="22"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="88:88:88" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EwG-Ex-3yr">
-                                    <rect key="frame" x="270" y="0.0" width="72" height="22"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--:--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EwG-Ex-3yr">
+                                    <rect key="frame" x="41.333333333333343" y="0.0" width="300.66666666666663" height="22"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -92,8 +95,12 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="RU9-oz-i5z"/>
                                     </constraints>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" image="rewind15"/>
+                                    <connections>
+                                        <action selector="handleRewind:" destination="N3T-sx-jZl" eventType="touchUpInside" id="YUd-PC-6mx"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfh-8g-DN8">
                                     <rect key="frame" x="94" y="0.0" width="50" height="185"/>
@@ -104,8 +111,12 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="54" id="fgO-2v-q0e"/>
                                     </constraints>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" image="play"/>
+                                    <connections>
+                                        <action selector="handlePlayPause:" destination="N3T-sx-jZl" eventType="touchUpInside" id="hvR-Lp-o8I"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5YJ-DE-yNo">
                                     <rect key="frame" x="198" y="0.0" width="50" height="185"/>
@@ -116,8 +127,12 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="QtF-72-h9U"/>
                                     </constraints>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" image="fastforward15"/>
+                                    <connections>
+                                        <action selector="handleFastForward:" destination="N3T-sx-jZl" eventType="touchUpInside" id="NX8-oX-p5N"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dT0-og-95t">
                                     <rect key="frame" x="292" y="0.0" width="50" height="185"/>
@@ -134,8 +149,11 @@
                                         <constraint firstAttribute="width" constant="34" id="GZc-TA-5G4"/>
                                     </constraints>
                                 </imageView>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="W4P-Dc-YMf">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="W4P-Dc-YMf">
                                     <rect key="frame" x="32" y="0.0" width="278" height="36"/>
+                                    <connections>
+                                        <action selector="handleVolumeChange:" destination="N3T-sx-jZl" eventType="valueChanged" id="caz-sk-52d"/>
+                                    </connections>
                                 </slider>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="max_volume" translatesAutoresizingMaskIntoConstraints="NO" id="7IS-id-noj">
                                     <rect key="frame" x="308" y="0.0" width="34" height="35"/>
@@ -161,6 +179,9 @@
             </constraints>
             <connections>
                 <outlet property="authorLabel" destination="1LM-bB-qKu" id="i1v-S2-cpX"/>
+                <outlet property="currentTimeLabel" destination="A1l-O3-SPe" id="ydh-iC-isw"/>
+                <outlet property="currentTimeSlider" destination="WLI-WM-3BK" id="BGl-mQ-VHN"/>
+                <outlet property="durationLabel" destination="EwG-Ex-3yr" id="a93-ND-6Lp"/>
                 <outlet property="episodeImageView" destination="kzX-2y-t3P" id="VbH-ST-erf"/>
                 <outlet property="playPauseButton" destination="Z1p-by-b8N" id="x2Y-iO-rGQ"/>
                 <outlet property="titleLabel" destination="vaM-x4-0dG" id="Q30-Pq-Coo"/>

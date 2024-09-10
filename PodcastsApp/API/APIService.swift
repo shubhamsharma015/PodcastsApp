@@ -20,25 +20,29 @@ class APIService {
         let secureFeedUrl = feedUrl.contains("https") ? feedUrl : feedUrl.replacingOccurrences(of: "http", with: "https")
         
         guard let url = URL(string: secureFeedUrl) else { return  }
-        let parser = FeedParser(URL: url)
-        parser.parseAsync { result in
-            switch result {
-            case .success(let feed):
-                if let rssFeed = feed.rssFeed {
-                        
-                   let episodes = rssFeed.toEpisodes()
-                    completionHandler(episodes)
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            let parser = FeedParser(URL: url)
+            parser.parseAsync { result in
+                switch result {
+                case .success(let feed):
+                    if let rssFeed = feed.rssFeed {
+                            
+                       let episodes = rssFeed.toEpisodes()
+                        completionHandler(episodes)
 
-                    print("Successfully parsed feed: \(feed)")
-                } else {
-                    print("Unexpected feed type: not an RSS feed")
-                }
-              case .failure(let error):
-                  print("Failed to parse feed with error: \(error.localizedDescription)")
+                        print("Successfully parsed feed: \(feed)")
+                    } else {
+                        print("Unexpected feed type: not an RSS feed")
+                    }
+                  case .failure(let error):
+                      print("Failed to parse feed with error: \(error.localizedDescription)")
+                    
                 
-            
-              }
-            
+                  }
+                
+            }
         }
         
     }

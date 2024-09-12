@@ -12,6 +12,7 @@ class PlayerDetailsView : UIView {
     
     var episode: Episode! {
         didSet {
+            miniTitleLabel.text = episode.title
             titleLabel.text = episode.title
             authorLabel.text = episode.author
             
@@ -19,6 +20,7 @@ class PlayerDetailsView : UIView {
             
             guard let url  = URL(string: episode.imageUrl ?? "") else { return }
             episodeImageView.sd_setImage(with: url)
+            miniEpisodeImageView.sd_setImage(with: url)
         }
     }
     
@@ -34,6 +36,8 @@ class PlayerDetailsView : UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximiize)))
         
         observePlayerCurrentTime()
         
@@ -52,9 +56,23 @@ class PlayerDetailsView : UIView {
     let pauseImage = UIImage(named: "pause")
     let playImage = UIImage(named: "play")
 
+    static func initFromNib() -> PlayerDetailsView {
+        Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
+    }
 
     
     //MARK: IB Outlets
+    
+    
+    
+    @IBOutlet weak var miniPlayerView: UIView!
+    @IBOutlet weak var maximizedStackView: UIStackView!
+    
+    @IBOutlet weak var miniEpisodeImageView: UIImageView!
+    @IBOutlet weak var miniTitleLabel: UILabel!
+    @IBOutlet weak var miniPlayPauseButton: UIButton!
+    @IBOutlet weak var miniFastForwardButton: UIButton!
+    
     
     @IBOutlet weak var currentTimeSlider: UISlider!
     @IBOutlet weak var durationLabel: UILabel!
@@ -80,10 +98,14 @@ class PlayerDetailsView : UIView {
     
     //MARK: IB Actions
     
+    
+    
+    
     @IBAction func handleDismiss(_ sender: UIButton) {
-        self.removeFromSuperview()
+//        self.removeFromSuperview()
 
-
+        let mainTabBarController = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
+        mainTabBarController?.minimizePlayerDetails()
     }
     
 
@@ -91,10 +113,12 @@ class PlayerDetailsView : UIView {
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(pauseImage, for: .normal)
+            miniPlayPauseButton.setImage(pauseImage, for: .normal)
             enlargeEpisodeImageView()
         } else {
             player.pause()
             playPauseButton.setImage(playImage, for: .normal)
+            miniPlayPauseButton.setImage(playImage, for: .normal)
             shrinkEpisodeImageView()
 
         }
@@ -191,5 +215,10 @@ class PlayerDetailsView : UIView {
         let percentage = currentTimeSeconds / durationSeconds
         
         self.currentTimeSlider.value = Float(percentage)
+    }
+    
+    @objc func handleTapMaximiize() {
+        let mainTabBarConroller = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
+        mainTabBarConroller?.maximizePlayerDetails(episode: nil)
     }
 }

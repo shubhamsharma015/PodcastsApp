@@ -73,10 +73,8 @@ class EpisodesController: UITableViewController {
         
         let mainTabBarConroller = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
 
-        mainTabBarConroller?.maximizePlayerDetails(episode: episode)
-        
-//
-//        
+        mainTabBarConroller?.maximizePlayerDetails(episode: episode, playlistEpisodes: self.episodes)
+
 //        let window = UIApplication.shared.keyWindowCustom
 //        
 //        let playerDetailsView = PlayerDetailsView.initFromNib()

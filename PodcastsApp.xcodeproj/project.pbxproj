@@ -29,12 +29,13 @@
 		84BD06F32C8EEFED000F26BD /* EpisodeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84BD06F12C8EEFED000F26BD /* EpisodeCell.xib */; };
 		84BD06F62C8EF9D9000F26BD /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD06F52C8EF9D9000F26BD /* StringExt.swift */; };
 		84BD06F82C8EFAA2000F26BD /* RSSFeedExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD06F72C8EFAA2000F26BD /* RSSFeedExt.swift */; };
-		84BD06FA2C8F0DA1000F26BD /* UIWindowExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD06F92C8F0DA1000F26BD /* UIWindowExt.swift */; };
 		84C64F022C8CC4960083A6A9 /* PodcastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C64F012C8CC4960083A6A9 /* PodcastCell.xib */; };
 		84C64F042C8CC6F60083A6A9 /* PodcastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C64F032C8CC6F60083A6A9 /* PodcastCell.swift */; };
 		84C64F062C8CD4AF0083A6A9 /* EpisodesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C64F052C8CD4AF0083A6A9 /* EpisodesController.swift */; };
 		84E1DEBB2C8F1320009F5B4A /* PlayerDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E1DEBA2C8F1320009F5B4A /* PlayerDetailsView.xib */; };
 		84E1DEBD2C8F155B009F5B4A /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1DEBC2C8F155B009F5B4A /* PlayerDetailsView.swift */; };
+		84FCC5872C937E350078E7BC /* PlayerDetailsView+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCC5862C937E350078E7BC /* PlayerDetailsView+Gesture.swift */; };
+		84FCC5892C9381E10078E7BC /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCC5882C9381E10078E7BC /* UIApplicationExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,12 +85,13 @@
 		84BD06F12C8EEFED000F26BD /* EpisodeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EpisodeCell.xib; sourceTree = "<group>"; };
 		84BD06F52C8EF9D9000F26BD /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		84BD06F72C8EFAA2000F26BD /* RSSFeedExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedExt.swift; sourceTree = "<group>"; };
-		84BD06F92C8F0DA1000F26BD /* UIWindowExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowExt.swift; sourceTree = "<group>"; };
 		84C64F012C8CC4960083A6A9 /* PodcastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PodcastCell.xib; sourceTree = "<group>"; };
 		84C64F032C8CC6F60083A6A9 /* PodcastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastCell.swift; sourceTree = "<group>"; };
 		84C64F052C8CD4AF0083A6A9 /* EpisodesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesController.swift; sourceTree = "<group>"; };
 		84E1DEBA2C8F1320009F5B4A /* PlayerDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerDetailsView.xib; sourceTree = "<group>"; };
 		84E1DEBC2C8F155B009F5B4A /* PlayerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
+		84FCC5862C937E350078E7BC /* PlayerDetailsView+Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerDetailsView+Gesture.swift"; sourceTree = "<group>"; };
+		84FCC5882C9381E10078E7BC /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		92519A1642C328626D89507B /* Pods_PodcastsApp_PodcastsAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PodcastsApp_PodcastsAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EE222B336CC565E89FF8B85 /* Pods-PodcastsApp-PodcastsAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodcastsApp-PodcastsAppUITests.release.xcconfig"; path = "Target Support Files/Pods-PodcastsApp-PodcastsAppUITests/Pods-PodcastsApp-PodcastsAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D0E0B5FE9F1132DB1B4D8264 /* Pods-PodcastsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodcastsApp.debug.xcconfig"; path = "Target Support Files/Pods-PodcastsApp/Pods-PodcastsApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,8 +228,8 @@
 			children = (
 				84BD06F52C8EF9D9000F26BD /* StringExt.swift */,
 				84BD06F72C8EFAA2000F26BD /* RSSFeedExt.swift */,
-				84BD06F92C8F0DA1000F26BD /* UIWindowExt.swift */,
 				8496FC862C8F7EC900EAB8CB /* CMTimeExt.swift */,
+				84FCC5882C9381E10078E7BC /* UIApplicationExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -240,6 +242,7 @@
 				84BD06F02C8EEFED000F26BD /* EpisodeCell.swift */,
 				84BD06F12C8EEFED000F26BD /* EpisodeCell.xib */,
 				84E1DEBC2C8F155B009F5B4A /* PlayerDetailsView.swift */,
+				84FCC5862C937E350078E7BC /* PlayerDetailsView+Gesture.swift */,
 				84E1DEBA2C8F1320009F5B4A /* PlayerDetailsView.xib */,
 			);
 			path = Views;
@@ -503,6 +506,8 @@
 				84C64F042C8CC6F60083A6A9 /* PodcastCell.swift in Sources */,
 				84BD06F82C8EFAA2000F26BD /* RSSFeedExt.swift in Sources */,
 				84BD06F22C8EEFED000F26BD /* EpisodeCell.swift in Sources */,
+				84FCC5892C9381E10078E7BC /* UIApplicationExt.swift in Sources */,
+				84FCC5872C937E350078E7BC /* PlayerDetailsView+Gesture.swift in Sources */,
 				84BD06ED2C8EEEF3000F26BD /* Episode.swift in Sources */,
 				8457AF1E2C863F6A007BF2D3 /* AppDelegate.swift in Sources */,
 				84BD06522C86541F0094F091 /* Podcast.swift in Sources */,
@@ -512,7 +517,6 @@
 				8457AF202C863F6A007BF2D3 /* SceneDelegate.swift in Sources */,
 				84BD06F62C8EF9D9000F26BD /* StringExt.swift in Sources */,
 				84C64F062C8CD4AF0083A6A9 /* EpisodesController.swift in Sources */,
-				84BD06FA2C8F0DA1000F26BD /* UIWindowExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

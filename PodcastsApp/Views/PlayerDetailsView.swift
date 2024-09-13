@@ -24,7 +24,7 @@ class PlayerDetailsView : UIView {
         }
     }
     
-
+    
     
     let player : AVPlayer = {
         let avPlayer = AVPlayer()
@@ -32,12 +32,14 @@ class PlayerDetailsView : UIView {
         return avPlayer
     }()
     
+    
+    
 
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximiize)))
+        setupGestures()
         
         observePlayerCurrentTime()
         
@@ -51,15 +53,50 @@ class PlayerDetailsView : UIView {
         }
         
     }
+    
+    fileprivate func setupGestures() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximiize)))
+        
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        miniPlayerView.addGestureRecognizer(panGesture)
+        
+        maximizedStackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
+        
+    }
+    @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+        
+        if gesture.state == .changed {
+            
+            let translation = gesture.translation(in: superview)
+            
+            maximizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            
+        } else if gesture.state == .ended {
+            let translation = gesture.translation(in: superview)
+
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) {
+                self.maximizedStackView.transform = .identity
+                
+                if translation.y > 50 {
+                    let mainTabBarController = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
+                    mainTabBarController?.minimizePlayerDetails()
+                }
+                
+            }
+        }
+    }
+    
     //MARK: Properties
     
     let pauseImage = UIImage(named: "pause")
     let playImage = UIImage(named: "play")
-
+    
     static func initFromNib() -> PlayerDetailsView {
         Bundle.main.loadNibNamed("PlayerDetailsView", owner: self, options: nil)?.first as! PlayerDetailsView
     }
-
+    
+    var panGesture: UIPanGestureRecognizer!
     
     //MARK: IB Outlets
     
@@ -83,7 +120,7 @@ class PlayerDetailsView : UIView {
         didSet {
             episodeImageView.layer.cornerRadius = 5
             episodeImageView.clipsToBounds = true
-
+            
             episodeImageView.transform = shrunkenTransform
         }
     }
@@ -102,13 +139,14 @@ class PlayerDetailsView : UIView {
     
     
     @IBAction func handleDismiss(_ sender: UIButton) {
-//        self.removeFromSuperview()
-
+        //        self.removeFromSuperview()
+        
         let mainTabBarController = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
         mainTabBarController?.minimizePlayerDetails()
+      
     }
     
-
+    
     @IBAction func handlePlayPause(_ sender: UIButton) {
         if player.timeControlStatus == .paused {
             player.play()
@@ -120,7 +158,7 @@ class PlayerDetailsView : UIView {
             playPauseButton.setImage(playImage, for: .normal)
             miniPlayPauseButton.setImage(playImage, for: .normal)
             shrinkEpisodeImageView()
-
+            
         }
     }
     
@@ -146,7 +184,7 @@ class PlayerDetailsView : UIView {
     }
     
     @IBAction func handleFastForward(_ sender: UIButton) {
-
+        
         seekToCurrentTime(delta: 15)
         
     }
@@ -176,11 +214,11 @@ class PlayerDetailsView : UIView {
     
     fileprivate func shrinkEpisodeImageView() {
         UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-   
+            
             self.episodeImageView.transform = self.shrunkenTransform
             
         })
-
+        
     }
     
     fileprivate func playEpisode() {
@@ -211,14 +249,11 @@ class PlayerDetailsView : UIView {
     fileprivate func updateCurrentTimeSlider() {
         let currentTimeSeconds  = CMTimeGetSeconds(player.currentTime())
         let durationSeconds = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
-      
+        
         let percentage = currentTimeSeconds / durationSeconds
         
         self.currentTimeSlider.value = Float(percentage)
     }
     
-    @objc func handleTapMaximiize() {
-        let mainTabBarConroller = UIApplication.shared.keyWindowCustom?.rootViewController as? MainTabBarController
-        mainTabBarConroller?.maximizePlayerDetails(episode: nil)
-    }
+ 
 }

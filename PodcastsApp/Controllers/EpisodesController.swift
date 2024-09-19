@@ -36,16 +36,85 @@ class EpisodesController: UITableViewController {
     
     fileprivate let cellID = "cellId"
     
-
-    
     var episodes = [Episode]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupTableView()
+        setupNavigationBarButtons()
     }
     
     //MARK: Setup Work
+    
+    fileprivate func setupNavigationBarButtons() {
+        
+        // checking if podcast already fav
+        
+        let savedPodcasts = UserDefaults.standard.savedPodcasts()
+        let hasFavorited = savedPodcasts.firstIndex(where: { $0.trackName == self.podcast?.trackName && $0.artistName == podcast?.artistName }) != nil
+        
+        if hasFavorited {
+ 
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: nil, action: nil)
+            
+        } else {
+            navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(handleSaveFavorite)),
+//                UIBarButtonItem(title: "Fetch", style: .plain, target: self, action: #selector(handleFetchSavedPodcasts))
+            ]
+        }
+        
+        
+
+        
+    }
+    
+    @objc fileprivate func handleSaveFavorite() {
+        print("saving info ")
+        
+        if let podcast = podcast {
+
+                //fetch our saved podcasts first
+
+            
+                var listOfPodcast = UserDefaults.standard.savedPodcasts()
+                listOfPodcast.append(podcast)
+            do{
+                let data = try JSONEncoder().encode(listOfPodcast)
+                UserDefaults.standard.set(data, forKey: UserDefaults.favoritedPodcastKey)
+                
+                showBadgeHighlight()
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: nil, action: nil)
+                print("sucess")
+            }catch let error{
+                print("Failed to save: Error: \(error)")
+            }
+            
+        }
+        
+    }
+    
+    fileprivate func showBadgeHighlight() {
+        UIApplication.mainTabBarController()?.viewControllers?[1].tabBarItem.badgeValue = "new"
+    }
+    
+    @objc fileprivate func handleFetchSavedPodcasts() {
+        print("fetching saved podcasts")
+  
+        do{
+            if let data = UserDefaults.standard.data(forKey: UserDefaults.favoritedPodcastKey){
+                let savedPodcasts = try JSONDecoder().decode([Podcast].self, from: data)
+                savedPodcasts.forEach { p in
+                    print(p.trackName)
+                }
+//                 print(savedPodcasts)
+            }
+        }catch let error {
+             print("Failed to save: Error: \(error)")
+        }
+    }
+    
+    
     
     fileprivate func SetupTableView() {
 //        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
